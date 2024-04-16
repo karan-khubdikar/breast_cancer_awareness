@@ -36,6 +36,23 @@ pie(filtered_data2$Percentage,
     labels = filtered_data2$Cancer_type, 
     main = "Distribution of Cancer Types")
 
+
+data <- data.frame(
+  category = c("Category A", "Category B", "Category C"),
+  value = c(30, 40, 30)
+)
+
+# Calculate percentages
+data$percent <- data$value / sum(data$value) * 100
+
+# Create a donut chart
+donut <- ggplot(filtered_data2, aes(x = "", y = VALUE, fill = Cancer_type)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  theme(legend.position = "right")
+
+donut
 ```
 
 ## Including Plots
@@ -47,3 +64,36 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+year_data <- read_csv("../data/filtered/year_data.csv")
+
+map_data <- read_csv("../data/filtered/map_data.csv")
+map_data
+
+library(plotly)
+
+plot_ly(map_data, type='choropleth', locations=~GEO, z=~VALUE, color =~VALUE)|> layout(geo = list(
+    scope = 'north america',  # Adjust scope for North America
+    projection = list(type = 'mercator')  # Adjust projection type for Canada
+  ))
+```
+
+```{r}
+library(plotly)
+# install.packages("sf")
+library(sf)
+
+# Assuming map_data is your data frame containing the geographical data
+map_data <- data.frame(
+  Postal = c("AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE"),
+  VALUE = c(148, 196, 50, 33, 24, 1, 34, 0, 565, 6)
+)
+
+
+geojson_data <- st_read("../data/filtered/map_chart_data.geojson")
+geojson_data
+# Create the choropleth map
+plot_ly(geojson_data, type = 'choropleth', locations = ~postal, z = ~prop_women, color = ~prop_women)
+
+```
