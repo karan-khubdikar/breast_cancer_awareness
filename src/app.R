@@ -21,16 +21,17 @@
     p("This Dashboard provides a brief summary about the number of new breast cancer cases in Canada over 10 years(2012-2021)"),
     p(""),
     tags$style(type = "text/css", 
+               ".column-panel { background-color: #f0f0f0; padding: 10px; }",
+               ".main-panel { border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; }",
+               ".table-container { border: 1px solid #ccc; padding: 10px; }"),
+    tags$style(type = "text/css", 
                ".column-panel { background-color: #f0f0f0; padding: 10px; }"),
-    fluidRow(
-    column(
-      width = 2,
-      class = 'column-panel',
-      selectInput(
+    sidebarPanel(
+           selectInput(
         'x_col_year',
         'SELECT YEAR (table)',
         choices = year_data$DATE,
-        selected = year_data$DATE[1]
+        selected = 2015
       ),
       selectInput(
         'x_col',
@@ -43,16 +44,20 @@
         'SELECT PROVINCE (pie)',
         choices = type_data$GEO,
         selected = type_data$GEO[1]
-      ),
-    ),
-    column(
-      width = 9,
-      tableOutput('table'),
-      plotOutput("pie_chart", width = "100%")
-    )
+      )
   ),
     mainPanel(
-      plotOutput("bar_plot", width = "600px"),
+      fluidRow(
+        column(
+          width = 4,
+        h5("Top 5 Provinces (new cases of Breast Cancer)"),
+        tableOutput('table'),),
+        column(
+          width = 8,
+        h5("Distribution of top 5 Cancers"),
+        plotOutput("pie_chart",height = "200px"),)),
+      h5("Average no. of cases across groups"),
+      plotOutput("bar_plot",height = "400px"),
     )
   )
 
@@ -65,11 +70,13 @@
         mutate(VALUE = round(VALUE,0))
       
       ggplot(filtered_data, aes(x = Age_group, y = VALUE)) +
-        geom_bar(stat = "identity", fill = 'darkblue')+
+        geom_bar(stat = "identity", fill = 'purple')+
         geom_text(aes(label = VALUE), vjust = -0.5, color = "black", size = 3.5)+
         labs(x = "Age Group",
-             y = "Avg no. of new Breast Cancer cases",
-             title = "Average no. of cases across groups")
+             y = "Avg no. of new Breast Cancer cases")+
+        theme_minimal()+
+        theme(panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank())
     })
     output$pie_chart <- renderPlot({
       filtered_data2 <- type_data %>%
@@ -85,7 +92,7 @@
         coord_polar(theta = "y") +
         theme_void() +
         theme(legend.position = "right")+
-        labs(title = "Distribution of top 5 Cancers", fill = "Cancer Types")
+        labs(fill = "Cancer Types")
     })
     output$table <- renderTable({
       table_data <- year_data %>%
