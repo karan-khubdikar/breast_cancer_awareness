@@ -1,0 +1,1 @@
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310011101&pickMembers%5B0%5D=2.1&pickMembers%5B1%5D=3.3&pickMembers%5B2%5D=4.28&cubeTimeFrame.startYear=2012&cubeTimeFrame.endYear=2021&referencePeriods=20120101%2C20210101

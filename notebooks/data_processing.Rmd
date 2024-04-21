@@ -97,3 +97,8 @@ geojson_data
 plot_ly(geojson_data, type = 'choropleth', locations = ~postal, z = ~prop_women, color = ~prop_women)
 
 ```
+
+```{r}
+cart_data <- as.integer(mean(year_data$VALUE))
+cart_data
+```

@@ -21,16 +21,37 @@
       tags$style(
         HTML(
           ".dashboard-header {
-          background-color: #ffc0cb; /* Change the color code to your desired color */
-          color: black; /* Change the text color if needed */
-          padding: 10px; /* Adjust the padding as needed */
+          background-color: #ffc0cb; 
+          color: black; 
+          padding: 10px; 
         }
         .chart-container {
-          border: 1px solid #ccc; /* Add grey border */
-          background-color: #f0f0f0; /* Add grey background */
-          padding: 10px; /* Adjust the padding as needed */
-          margin-bottom: 20px; /* Add margin bottom for spacing */
-        }"  
+          border: 1px solid #ccc; 
+          background-color: #f0f0f0; 
+          padding: 10px; 
+          margin-bottom: 20px;
+        }
+        .card {
+          width: 400px;
+          height: 175px;
+          border-radius: 3px; 
+          padding: 10px;
+          margin: 10px;
+          background-color: pink;
+        }
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid black;
+        }
+        th, td {
+          border: 1px solid black;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
+        }"
         )
       )
     ),
@@ -55,14 +76,26 @@
       selectInput(
         'x_col_pie',
         'SELECT PROVINCE (for pie chart)',
-        choices = type_data$GEO,
+        choices = unique(type_data$GEO),
         selected = 'Alberta'
       ),
       selectInput(
         'x_col',
         'SELECT PROVINCE (for bar chart)',
-        choices = age_data$GEO,
+        choices = unique(age_data$GEO),
         selected = 'Alberta'
+      ),
+      
+      fluidRow(
+        column(12,
+               div(
+                 class = "card",
+               wellPanel(
+                 h4("No. of New Breast Cancer Cases"),
+                 p("(Yearly average overall Canada)"),
+                 h3(textOutput('card'))
+               ))
+        ),
       )
   ),
   mainPanel(
@@ -77,13 +110,13 @@
       column(
         width = 7,
         div(class = "chart-container",
-            h4("Distribution of Top 5 Cancers"),
+            h4("Distribution of Top 5 Cancers(yearly average)"),
             plotOutput("pie_chart", height = "220px")
         )
       )
     ),
     div(class = "chart-container",
-        h4("Average no. of cases across Age groups"),
+        h4("Average no. of new Breast Cancer cases across Age groups(yearly average)"),
         plotOutput("bar_plot", height = "400px")
     )
   )
@@ -94,10 +127,10 @@
   server <- function(input, output, session) {
     observe({
       updateSelectInput(session, "x_col_year", selected = year_data$DATE[1])
-      updateSelectInput(session, "x_col", selected = age_data$GEO[1])
-      updateSelectInput(session, "x_col_pie", selected = type_data$GEO[1])
+      updateSelectInput(session, "x_col", selected = input$x_col)
+      updateSelectInput(session, "x_col_pie", selected = input$x_col)
     })
-    output$bar_plot <- renderPlot({  # Change 'plot' to 'bar_plot'
+    output$bar_plot <- renderPlot({  
       filtered_data <- age_data %>%
         filter(GEO == input$x_col) %>%
         mutate(VALUE = round(VALUE,0))
@@ -126,7 +159,8 @@
         coord_polar(theta = "y") +
         theme_void() +
         theme(legend.position = "right")+
-        labs(fill = "Cancer Types")
+        labs(fill = "Cancer Types")+
+        guides(fill = guide_legend(keywidth = 2, keyheight = 2)) 
     })
     output$table <- renderTable({
       table_data <- year_data %>%
@@ -135,10 +169,14 @@
         mutate(Value = round(Value, 0)) %>%
         arrange(desc(Value)) %>%
         head(5) %>%
-        mutate(rank = as.integer(rank(-Value)),
+        mutate(Rank = as.integer(rank(-Value)),
                Value = as.integer(Value)) %>%
-        select(rank, Province, Value) 
+        select(Rank, Province, Value) 
       return(table_data)
+    })
+    output$card <- renderText({
+      card_data <- as.integer(mean(year_data$VALUE))
+      return(card_data)
     })
     
   }
