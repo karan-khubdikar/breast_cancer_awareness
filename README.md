@@ -61,6 +61,8 @@ located at the top right corner of the `app.R` script tab in RStudio.
 
 The following video provides a walkthrough to navigate through the app
 
+![Video walkthrough](https://github.ubc.ca/MDS-2023-24/DSCI_532_individual-assignment_karan647/blob/master/img/DSCI_532_individual-assignment_karan647.mp4)
+
 ### References
 
 https://www.who.int/news-room/fact-sheets/detail/cancer
