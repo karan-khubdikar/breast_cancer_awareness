@@ -66,3 +66,5 @@ The following video provides a walkthrough to navigate through the app
 https://www.who.int/news-room/fact-sheets/detail/cancer
 
 https://ascopubs.org/doi/full/10.1200/op.20.00793
+
+https://mastering-shiny.org/basic-app.html
