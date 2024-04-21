@@ -7,7 +7,7 @@ Contributor: Karan Khubdikar
 
 According to a [2021 clinical review](https://ascopubs.org/doi/full/10.1200/op.20.00793), 
 breast cancer is now the most common type of cancer for women younger than 39.
-Breast cancer is one of the top 5 cancer deaths in 2020 according to World Health Organization
+Breast cancer is also among one of the top 5 cancer deaths in 2020 according to World Health Organization
 This dashboard aims to raise awareness among women about the importance of regular check-ups, 
 encouraging proactive measures to prevent the onset of breast cancer.
 
@@ -66,3 +66,5 @@ The following video provides a walkthrough to navigate through the app
 https://www.who.int/news-room/fact-sheets/detail/cancer
 
 https://ascopubs.org/doi/full/10.1200/op.20.00793
+
+https://mastering-shiny.org/basic-app.html
