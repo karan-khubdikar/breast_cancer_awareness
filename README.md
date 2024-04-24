@@ -46,14 +46,21 @@ cd DSCI_532_individual-assignment_karan647
 
 **Note:** To install RStudio follow [link](https://rstudio-education.github.io/hopr/starting.html) if you do not have Rstudio installed.
 
-3. Open the `app.R` file and run the following command in console to update the dependencies required
+3. Install `renv` by typing the following in the Rstudio console
+```
+install.packages("renv")
+```
+
+4. Open the `app.R` file and run the following command in console to update the dependencies required
 ```
 renv::restore()
 ```
 
-4. After installing the packages, you can run the Shiny app by clicking the "Run App" button 
-located at the top right corner of the `app.R` script tab in RStudio.
-
+5. After installing the packages, you can run the Shiny app by clicking the "Run App" button 
+located at the top right corner of the `app.R` script tab in RStudio or enter the following command in console.
+```
+shiny::runApp("src/app.R")
+```
 6. The Shiny app should open in your default web browser, allowing you to interact with it locally
 
 ### Video walkthrough
