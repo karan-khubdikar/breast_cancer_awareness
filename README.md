@@ -42,17 +42,16 @@ Please follow the instructions below to run the app locally.
 git clone https://github.ubc.ca/MDS-2023-24/DSCI_532_individual-assignment_karan647.git
 cd DSCI_532_individual-assignment_karan647
 ```
-2. Open RStudio and navigate to the project directory where you cloned the repository
+2. Open RStudio project file (`DSCI_532_individual-assignment_karan647`)
 
-To install RStudio follow [link](https://rstudio-education.github.io/hopr/starting.html)
+**Note:** To install RStudio follow [link](https://rstudio-education.github.io/hopr/starting.html) if you do not have Rstudio installed.
 
-3. Open the `app.R` file in RStudio.
-
-4. Ensure you have the required R packages installed by running the following commands in the RStudio console:
+3. Open the `app.R` file and run the following command in console to update the dependencies required
 ```
-install.packages(c("shiny", "ggplot2", "dplyr", "tidyr", "readr"))
+renv::restore()
 ```
-5. After installing the packages, you can run the Shiny app by clicking the "Run App" button 
+
+4. After installing the packages, you can run the Shiny app by clicking the "Run App" button 
 located at the top right corner of the `app.R` script tab in RStudio.
 
 6. The Shiny app should open in your default web browser, allowing you to interact with it locally
@@ -70,3 +69,5 @@ https://www.who.int/news-room/fact-sheets/detail/cancer
 https://ascopubs.org/doi/full/10.1200/op.20.00793
 
 https://mastering-shiny.org/basic-app.html
+
+[Data Source](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310011101&pickMembers%5B0%5D=2.1&pickMembers%5B1%5D=3.3&pickMembers%5B2%5D=4.28&cubeTimeFrame.startYear=2012&cubeTimeFrame.endYear=2021&referencePeriods=20120101%2C20210101)
