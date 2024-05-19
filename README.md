@@ -1,5 +1,5 @@
 # Breast Cancer Awareness
-![image](https://github.ubc.ca/MDS-2023-24/DSCI_532_individual-assignment_karan647/blob/master/img/Breast-cancer-awareness.jpg)
+![image](https://github.com/karan-khubdikar/breast_cancer_awareness/blob/master/img/Breast-cancer-awareness.jpg)
 
 Contributor: Karan Khubdikar
 
